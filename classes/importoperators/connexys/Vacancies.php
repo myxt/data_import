@@ -1,14 +1,16 @@
 <?php
 
-class ConnexysVacaturesOperator extends ImportOperator
+class Vacancies extends ImportOperator
 {
 
-	function VacaturesOperator( $handler )
+	function __construct( $handler )
 	{
 		$this->source_handler = $handler;
 		$this->source_handler->logger = new eZLog();
 		$this->cli = eZCLI::instance();
 		$this->cli->setUseStyles( true );
+
+		$this->dataINI = eZINI::instance( 'data_import.ini' );
 	}
 
 	function run()
@@ -21,7 +23,7 @@ class ConnexysVacaturesOperator extends ImportOperator
 		 * want we weten niet zeker of alle objecten nog in de XML staan.
 		 * Objecten waarvan de remote_id niet in de XML staat worden verwijderd (pass 1).
 		 */
-		$this->cleanupeZVacancies();
+		$this->cleanupVacancies();
 		
 		/*
 		 * Vervolgens loopt het script door de vacatures in de XML.
@@ -29,24 +31,23 @@ class ConnexysVacaturesOperator extends ImportOperator
 		 * Bestaande vacatures worden geupdate;
 		 * Verlopen vacatures worden verwijderd (pass 2).
 		 */
-		$this->handleXMLVacancies();
+		$this->importVacancies();
 		
 	}
 
 	/*
 	 * Cleans up leftover eZ vacancies that are not present in the XML
 	 */
-	function cleanupeZVacancies()
+	function cleanupVacancies()
 	{
 		$this->cli->output( $this->cli->stylize( 'cyan', "\nCleaning up old vacancies in eZ Publish.\n" ), false );
 		
-		$parentNodeID = $this->source_handler->dataINI->variable( 'xmlhandler_connexysVacatures_v2', 'parentNodeID' );
-		$importClassIdentifier = $this->source_handler->dataINI->variable( 'xmlhandler_connexysVacatures_v2', 'importClassIdentifier' );
-		$parentNode = eZContentObjectTreeNode::fetch( $parentNodeID );
+		$classIdentifier = $this->source_handler->classIdentifier;
+		$parentNode = eZContentObjectTreeNode::fetch( $this->source_handler->parentNodeID );
 		$nodes = $parentNode->attribute( 'children' );
 		foreach( $nodes as $node )
 		{
-			if( $node->ClassIdentifier == $importClassIdentifier )
+			if( $node->ClassIdentifier == $classIdentifier )
 			{
 				$object = eZContentObject::fetchByNodeID( $node->attribute('node_id') );
 				$remoteID = $object->attribute('remote_id');
@@ -54,6 +55,7 @@ class ConnexysVacaturesOperator extends ImportOperator
 				$this->cli->output( 'Checking eZ object ('.$this->cli->stylize( 'emphasize', $remoteID ).') of type ('.$this->cli->stylize( 'emphasize', $this->source_handler->getTargetContentClass() ).')... ' , false );
 				
 				$sourceID = $this->extractIdFromRemoteId( $remoteID );
+				print_r($sourceID);
 				if(	!in_array( $sourceID , $this->source_handler->sourceIdArray ) )
 				{
 					$this->remove_eZ_object( $object );
@@ -66,7 +68,7 @@ class ConnexysVacaturesOperator extends ImportOperator
 
 	}
 	
-	function handleXMLVacancies()
+	function importVacancies()
 	{
 		$this->cli->output( $this->cli->stylize( 'cyan', "\nHandling XML vacancies.\n" ), false );
 		
@@ -76,7 +78,7 @@ class ConnexysVacaturesOperator extends ImportOperator
 			$this->current_eZ_object = null;
 			$this->current_eZ_version = null;
 			
-		    $remoteID           = $this->source_handler->getDataRowId();
+	    $remoteID           = $this->source_handler->getDataRowId();
 			$targetContentClass = $this->source_handler->getTargetContentClass();
 			$targetLanguage     = $this->source_handler->getTargetLanguage();
 
@@ -113,9 +115,10 @@ class ConnexysVacaturesOperator extends ImportOperator
 					$this->remove_eZ_object ( $this->current_eZ_object );
 					$this->cli->output( $this->cli->stylize( 'green', 'succesfully removed.'."\n" ), false );
 				}
-				else // Niets doen
+				else {
 					$this->cli->output( $this->cli->stylize( 'gray', 'skipped.'."\n" ), false );
-					
+				}
+
 				// Door naar de volgende vacature
 				continue;
 			}
@@ -131,7 +134,7 @@ class ConnexysVacaturesOperator extends ImportOperator
 					$this->publish_eZ_node();
 					
 					$post_publish_success = $this->source_handler->post_publish_handling( $this->current_eZ_object, $force_exit );
-					
+
 					if( $post_publish_success )
 					{
 						$this->setNodesPriority();
@@ -157,6 +160,64 @@ class ConnexysVacaturesOperator extends ImportOperator
 			}
 		}
 	}
+
+    /**
+     * Added structure to handle some special fields.
+     * @param boolean $force_exit
+     */
+    protected function save_eZ_node( &$force_exit )
+    {
+        // update eZContentObject States
+        $stateIds = $this->source_handler->getStateIds();
+        MugoHelpers::updateObjectStates( $this->current_eZ_object, $stateIds );
+
+        // set eZContentObject Attributes
+        $eZObjectAttributes = array_merge(
+            $this->source_handler->getEzObjAttributes(),
+            array( 'remote_id' => $this->source_handler->getDataRowId() )
+        );
+
+        foreach( $eZObjectAttributes as $key => $value )
+        {
+            $this->current_eZ_object->setAttribute( $key, $value );
+        }
+
+        // update data_map
+        $dataMap  = $this->current_eZ_version->attribute( 'data_map' );
+
+        while( $this->source_handler->getNextField() )
+        {
+            $contentObjectAttribute = $dataMap[ $this->source_handler->geteZAttributeIdentifierFromField() ];
+
+            if( $contentObjectAttribute )
+            {
+                $this->save_eZ_attribute( $contentObjectAttribute );
+            }
+            else
+            {
+                $this->cli->output( $this->cli->stylize( 'red', 'eZ Attribute ('.$this->source_handler->geteZAttributeIdentifierFromField().') does not exist - skipped.' ), false );
+            }
+        }
+
+        // Handle some special fields, non-flat XML.
+        while( $this->source_handler->getSpecialField() )
+        {
+            $contentObjectAttribute = $dataMap[ $this->source_handler->geteZAttributeIdentifierFromField() ];
+
+            if( $contentObjectAttribute )
+            {
+                $this->save_eZ_attribute( $contentObjectAttribute );
+            }
+            else
+            {
+                $this->cli->output( $this->cli->stylize( 'red', 'eZ Attribute ('.$this->source_handler->geteZAttributeIdentifierFromField().') does not exist - skipped.' ), false );
+            }
+        }
+
+        $this->current_eZ_object->store();
+
+        return $this->source_handler->post_save_handling( $this->current_eZ_object, $force_exit );
+    }
 	
 	function update_eZ_node( $remoteID, $row, $targetContentClass, $targetLanguage = null )
 	{
@@ -184,8 +245,8 @@ class ConnexysVacaturesOperator extends ImportOperator
 	
 	function extractIdFromRemoteId( $remoteID )
 	{
-		$remoteParts = explode( '_', $remoteID );
-		return $remoteParts[2];
+		$remoteParts = explode( $this->source_handler->idPrepend, $remoteID );
+		return $remoteParts[1];
 	}
 	
 }

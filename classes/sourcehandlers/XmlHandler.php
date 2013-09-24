@@ -4,14 +4,15 @@
  * @author pek
  *
  */
-class XmlHandlerPHP extends SourceHandler
+class XmlHandler extends SourceHandler
 {
 	public $first_row = true;
 	public $first_field = true;
-	public $idPrepend = 'xml_import_';
-	public $handlerTitle = 'Abstract XML Handler';
 	public $source_file;
 	public $dom;
+
+	public $idPrepend = 'remote_xml_';
+	protected $handlerTitle = 'Abstract XML Handler';
 
 	/* (non-PHPdoc)
 	 * @see SourceHandler::getNextRow()
@@ -67,7 +68,7 @@ class XmlHandlerPHP extends SourceHandler
 	 */
 	public function geteZAttributeIdentifierFromField()
 	{
-		return 'eZ Attribute Identifier';
+		return strtolower( $this->current_field->tagName );
 	}
 
 	function post_publish_handling( $eZ_object, $force_exit = false )
@@ -130,6 +131,7 @@ class XmlHandlerPHP extends SourceHandler
 	function XmlLoader( $strXml )
 	{
 	    $dom = new DOMDocument();
+	    $dom->preserveWhiteSpace = FALSE; // Removes all #text nodes, i.e. white spaces.
 	    $dom->loadXml($strXml);   
 	    return $dom;
 	}

@@ -9,8 +9,8 @@ class SourceHandler
 	public $data;
 	public $current_row;
 	public $current_field;
-	public $idPrepend = 'remoteID_';
-	public $handlerTitle = 'Abstract Handler';
+	public $idPrepend = 'remote_';
+	protected $handlerTitle = 'Abstract Handler';
 	protected $parameters;
 	
 	public $logger = false;

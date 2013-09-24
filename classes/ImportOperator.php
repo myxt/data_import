@@ -11,6 +11,8 @@ class ImportOperator
 	public $current_eZ_object;
 	public $current_eZ_version;
 	public $cli;
+
+	public $dataINI;
 	
 	/**
 	 * Either "create" or "update" on each row iteration
@@ -25,6 +27,8 @@ class ImportOperator
 	{
 		$this->cli = eZCLI::instance();
 		$this->cli->setUseStyles( true );
+
+		$this->dataINI = eZINI::instance( 'data_import.ini' );
 	}
 
 	/**
@@ -126,8 +130,6 @@ class ImportOperator
 		
 		$targetContentClass = $this->source_handler->getTargetContentClass();
 		
-		$this->cli->output( 'creating (' . $this->cli->stylize( 'emphasize', $targetContentClass ) . ') ' , false );
-		
 		$eZ_object = MugoHelpers::createEzObject(
 				null,
 				$targetContentClass,
@@ -143,7 +145,7 @@ class ImportOperator
 		}
 		else
 		{
-			$this->cli->output( $this->cli->stylize( 'red', 'Could not create eZContentObject. (Wrong content class identifer?)' ), false );
+			$this->cli->output( $this->cli->stylize( 'red', 'Could not create eZContentObject.' ), false );
 		}
 
 		return $return;
