@@ -200,6 +200,25 @@ class ConnexysVacanciesHandler extends XmlHandler
                 break;
             }
 
+            case 'CompanyInformation':
+            case 'FunctionDescription':
+            case 'JobRequirements':
+            case 'Compensation':
+            {
+                $xml_text_parser = new XmlTextParser();
+                $xmltext = $xml_text_parser->Html2XmlText( $this->current_field->nodeValue );
+
+                if($xmltext !== false)
+                {
+                    return $xmltext;
+                }
+                else
+                {
+                    // TODO: log this.
+                    return "";
+                }
+            }
+
             case 'DateFrom':
             {
                 return $this->dateFrom;
