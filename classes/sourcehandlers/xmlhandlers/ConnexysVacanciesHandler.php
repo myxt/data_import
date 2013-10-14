@@ -80,6 +80,16 @@ class ConnexysVacanciesHandler extends XmlHandler
     }
 
     /**
+     * Returns the locale to create objects in.
+     * @return string
+     */
+    public function getTargetLanguage()
+    {
+        $ini = eZINI::instance();
+        return $ini->variable( 'RegionalSettings', 'ContentObjectLocale' );
+    }
+
+    /**
      * Get the next vacancy in the XML and return the DOM.
      * @return DOMElement the next vacancy.
      */
