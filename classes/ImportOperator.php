@@ -133,7 +133,9 @@ class ImportOperator
 		$eZ_object = MugoHelpers::createEzObject(
 				null,
 				$targetContentClass,
-				$this->source_handler->getParentNodeId()
+				$this->source_handler->getParentNodeId(),
+				null,
+				$targetLanguage
 		);
 		
 		if( $eZ_object )

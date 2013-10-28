@@ -174,15 +174,14 @@ class MugoHelpers
 	 * @param array $stateIds
 	 * @return eZContentObject
 	 */
-	public static function createEzObject( array $attributes, $class_idenfier, $parent_node_id, array $stateIds = null )
+	public static function createEzObject( array $attributes, $class_idenfier, $parent_node_id, array $stateIds = null, $targetLanguage = null )
 	{
 		$eZ_object = null;
-		
 		$eZClass = eZContentClass::fetchByIdentifier( $class_idenfier );
 	
 		if( $eZClass )
 		{
-			$eZ_object = $eZClass->instantiate( false, 0, false );
+			$eZ_object = $eZClass->instantiate( false, 0, false, 'dut-NL' ); // Quick hack. For some reason $targetLanguage is always 1.
 			
 			//set attributes
 			if( !empty( $attributes ) )
