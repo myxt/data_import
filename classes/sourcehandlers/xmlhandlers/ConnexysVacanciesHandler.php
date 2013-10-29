@@ -99,6 +99,7 @@ class ConnexysVacanciesHandler extends XmlHandler
         $this->first_field = true;
         $this->node_priority = false;
         $this->current_counter = 0;
+        $this->specialFieldCounter = 0;
         $this->categories = array();
 
         // If this is the first node, it contains version info.
