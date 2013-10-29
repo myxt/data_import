@@ -42,12 +42,12 @@ class ConnexysVacanciesHandler extends XmlHandler
      */
     private $specialFieldCounter = 0;
     private $specialFields = array( 'DisplayJobTitle',
-                                    'Subtitle',
                                     'CompanyInformation',
                                     'FunctionDescription',
                                     'JobRequirements',
                                     'Compensation',
                                     'ContactInfo',
+                                    'Subtitle',
                                     'RegistrationLink' );
 
     function __construct()
@@ -214,6 +214,8 @@ class ConnexysVacanciesHandler extends XmlHandler
             case 'FunctionDescription':
             case 'JobRequirements':
             case 'Compensation':
+            case 'ContactInfo':
+            case 'Subtitle':
             {
                 $xml_text_parser = new XmlTextParser();
                 $xmltext = $xml_text_parser->Html2XmlText( $this->current_field->nodeValue );
