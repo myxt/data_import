@@ -21,10 +21,11 @@ class XmlTextParser
 			$config = array( 'doctype' => 'omit',
 			                 'show-body-only' => true,
 			                 'wrap' => false,
+			                 'preserve-entities' => true,
 			                 'new-inline-tags' => 'anchor,literal,dm_link,inline_image'
 			);
 
-			$tidy->parseString( $html, $config, 'utf8');
+			$tidy->parseString( $html, $config, 'UTF8');
 			$tidy->cleanRepair();
 
 			$html = tidy_get_output( $tidy );
@@ -34,7 +35,8 @@ class XmlTextParser
 		
 		// remove unsupported tags
 		$html = strip_tags( $html, '<p><a><i><em><h><br><h1><h2><h3><h4><h5><h6><anchor><strong><literal><li><ul><ol><th><td><tr><table><embed>' );
-		
+		// convert html entities like &euml; to utf8
+		$html = html_entity_decode( $html );
 		$parser = new eZSimplifiedXMLInputParser( null );
 		$document = $parser->process( $html );
 
