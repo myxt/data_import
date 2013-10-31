@@ -45,6 +45,7 @@ class Vacancies extends ImportOperator
 		$classIdentifier = $this->source_handler->classIdentifier;
 		$parentNode = eZContentObjectTreeNode::fetch( $this->source_handler->parentNodeID );
 		$nodes = $parentNode->attribute( 'children' );
+
 		foreach( $nodes as $node )
 		{
 			if( $node->ClassIdentifier == $classIdentifier )
@@ -55,7 +56,6 @@ class Vacancies extends ImportOperator
 				$this->cli->output( 'Checking eZ object ('.$this->cli->stylize( 'emphasize', $remoteID ).') of type ('.$this->cli->stylize( 'emphasize', $this->source_handler->getTargetContentClass() ).')... ' , false );
 				
 				$sourceID = $this->extractIdFromRemoteId( $remoteID );
-				print_r($sourceID);
 				if(	!in_array( $sourceID , $this->source_handler->sourceIdArray ) )
 				{
 					$this->remove_eZ_object( $object );

@@ -74,6 +74,13 @@ $ezp_script_env->initialize();
 # Script process
 ####################
 
+// Elevate user rights.
+$user = eZUser::fetchByName('admin');
+if( !$user )
+	MyxteTreatmentLog::writeError( 'Error elevating cronjob user rights', 'process_treatments.php' );
+else
+	$user->loginCurrent();
+
 $source_handler_id  = $source_handler_option->value;
 $import_operator_id = $import_operator_option->value;
 $options_str        = $options_option->value;
