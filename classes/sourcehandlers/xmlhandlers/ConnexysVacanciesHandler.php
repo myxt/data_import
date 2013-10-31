@@ -431,20 +431,34 @@ class ConnexysVacanciesHandler extends XmlHandler
 
         $datum_van = $publicatie->getElementsByTagName('DateFrom');
         $datum_van = $datum_van->item(0)->nodeValue;
-        $datum_van = $this->convertDayToTimestamp($datum_van);
+        if( $datum_van )
+        {
+            $datum_van = $this->convertDayToTimestamp($datum_van);
+        }
 
         $datum_tot = $publicatie->getElementsByTagName('DateUntil');
         $datum_tot = $datum_tot->item(0)->nodeValue;
-        $datum_tot = $this->convertDayToTimestamp($datum_tot);
+        if( $datum_tot )
+        {
+            $datum_tot = $this->convertDayToTimestamp($datum_tot);
+        }
 
-        // Also publish if datum_tot is empty
-        if ($datum_van <= $today && ($datum_tot > $today || $datum_tot == '' || $datum_tot == null || !$datum_tot)) {
+        $sollicitatie_link = $publicatie->getElementsByTagName('RegistrationLink');
+        $this->registrationLink = $sollicitatie_link->item(0)->nodeValue;
+
+        if( !$datum_van )
+            return true;
+
+        if( $datum_van <= $today && !$datum_tot )
+        {
+            $this->dateFrom = $datum_van;
+            return true;
+        }
+
+        if( $datum_van <= $today && $datum_tot > $today )
+        {
             $this->dateFrom = $datum_van;
             $this->dateClosed = $datum_tot;
-
-            $sollicitatie_link = $publicatie->getElementsByTagName('RegistrationLink');
-            $this->registrationLink = $sollicitatie_link->item(0)->nodeValue;
-
             return true;
         }
         return false;
