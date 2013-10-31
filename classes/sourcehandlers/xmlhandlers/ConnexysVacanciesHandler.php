@@ -186,16 +186,12 @@ class ConnexysVacanciesHandler extends XmlHandler
 
             case 'OrganizationUnit':
             {
-                $type = $this->current_field->getAttribute('type');
-                if ($type == 3)
-                    return $this->current_field->firstChild->nodeValue;
-
+                $department = null;
                 $departments = $this->current_field->getElementsByTagName('OrganizationUnit');
                 foreach ($departments as $department) {
-                    $type = $department->getAttribute('type');
-                    if ($type == 3)
-                        return $department->nodeValue;
+                    $department = $department->nodeValue;
                 }
+                return $department;
             }
 
             case 'FunctionGroup1':
