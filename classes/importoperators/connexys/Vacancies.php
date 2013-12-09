@@ -46,6 +46,8 @@ class Vacancies extends ImportOperator
 		$parentNode = eZContentObjectTreeNode::fetch( $this->source_handler->parentNodeID );
 		$nodes = $parentNode->attribute( 'children' );
 
+    $clearCache = false;
+
 		foreach( $nodes as $node )
 		{
 			if( $node->ClassIdentifier == $classIdentifier )
@@ -60,11 +62,15 @@ class Vacancies extends ImportOperator
 				{
 					$this->remove_eZ_object( $object );
 					$this->cli->output( $this->cli->stylize( 'green', "successfully removed.\n" ), false );
+          $clearCache = true;
 				}
 				else
 					$this->cli->output( $this->cli->stylize( 'gray', "skipped.\n" ), false );
 			}
 		}
+
+    if( $clearCache )
+      ezContentObject::clearCache( $parentNode->attribute('contentobject_id') );
 
 	}
 	
