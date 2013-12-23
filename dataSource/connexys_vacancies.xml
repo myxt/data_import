@@ -5,33 +5,36 @@
       <Date>31-12-2012</Date>
       <Variation>CXS</Variation>
    </Version>
-   <Vacancy id="241">
-      <VacancyName><![CDATA[Test vacature tbv XML]]></VacancyName>
-      <OrganizationUnit typename="Organisatie" type="1" level="2" id="21">
-      <name><![CDATA[Naam eigen organisatie]]></name>
-      <OrganizationUnit typename="Afdeling" type="3" level="1" id="81">
-      <name><![CDATA[Afdeling test]]></name>
+   <Vacancy id="261">
+      <VacancyName><![CDATA[Senior Verpleegkundige]]></VacancyName>
+      <OrganizationUnit typename="Organisatie" type="1" level="3" id="21">
+      <name><![CDATA[OLVG]]></name>
+      <OrganizationUnit typename="Unit" type="2" level="2" id="92">
+      <name><![CDATA[Longgeneeskunde]]></name>
+      <OrganizationUnit typename="Afdeling" type="3" level="1" id="142">
+      <name><![CDATA[Verpleegafdeling]]></name>
       </OrganizationUnit>
       </OrganizationUnit>
-      <Recruiter cpn_id="1061">
+      </OrganizationUnit>
+      <Recruiter cpn_id="1201">
          <Initials><![CDATA[]]></Initials>
-         <FirstName><![CDATA[Team]]></FirstName>
+         <FirstName><![CDATA[Renée]]></FirstName>
          <SurnamePrefix><![CDATA[]]></SurnamePrefix>
-         <Surname><![CDATA[Recruitment]]></Surname>
-         <WorkEmail><![CDATA[null@connexys.nl]]></WorkEmail>
+         <Surname><![CDATA[Velsen]]></Surname>
+         <WorkEmail><![CDATA[r.n.velsen@olvg.nl]]></WorkEmail>
          <WorkPhone><![CDATA[]]></WorkPhone>
-         <Gender><![CDATA[Male]]></Gender>
+         <Gender><![CDATA[Female]]></Gender>
          <SocialProfiles>
          </SocialProfiles>
          <Photos>
          </Photos>
       </Recruiter>
-      <HiringManager cpn_id="1181">
+      <HiringManager cpn_id="1221">
          <Initials><![CDATA[]]></Initials>
-         <FirstName><![CDATA[Hiring]]></FirstName>
+         <FirstName><![CDATA[Wendel]]></FirstName>
          <SurnamePrefix><![CDATA[]]></SurnamePrefix>
-         <Surname><![CDATA[Manager]]></Surname>
-         <WorkEmail><![CDATA[null@connexys.com]]></WorkEmail>
+         <Surname><![CDATA[Kouwenhoven]]></Surname>
+         <WorkEmail><![CDATA[w.kouwenhoven@olvg.nl]]></WorkEmail>
          <WorkPhone><![CDATA[]]></WorkPhone>
          <Gender><![CDATA[Female]]></Gender>
          <SocialProfiles>
@@ -39,281 +42,69 @@
          <Photos>
          </Photos>
       </HiringManager>
-      <Function id="21"><![CDATA[Manager]]></Function>
-      <FunctionGroup1 id="3">
-         <language id="NL"><![CDATA[Administratie]]></language>
-         <language id="EN"><![CDATA[Administration]]></language>
-         <language id="DE"><![CDATA[Buchhaltung]]></language>
+      <Function id="44"><![CDATA[Senior verpleegkundige]]></Function>
+      <FunctionGroup1 id="21">
+         <language id="NL"><![CDATA[Verpleegkunde]]></language>
       </FunctionGroup1>
       <FunctionGroup1Type id=""><![CDATA[]]></FunctionGroup1Type>
-      <FunctionGroup2 id="2">
-         <language id="NL"><![CDATA[Financieel]]></language>
-         <language id="EN"><![CDATA[Financial]]></language>
-         <language id="DE"><![CDATA[Finanzen]]></language>
-      </FunctionGroup2>
-      <FunctionGroup2Type id=""><![CDATA[]]></FunctionGroup2Type>
-      <DateFrom>27-08-2013</DateFrom>
-      <DateClosed>01-11-2013</DateClosed>
+      <DateFrom>25-10-2013</DateFrom>
+      <DateClosed></DateClosed>
       <Filled><![CDATA[Open]]></Filled>
-      <VacancyNumber><![CDATA[12345]]></VacancyNumber>
-      <ContractType>Vast contract</ContractType>
-      <FTE>1.0</FTE>
-      <Fulltime>Ja</Fulltime>
-      <MinimumHoursPerWeek>36</MinimumHoursPerWeek>
-      <HoursPerWeek>40</HoursPerWeek>
-      <ExperienceRequired id=""><![CDATA[Veel ervaring]]></ExperienceRequired>
-      <FunctionLevel2 id=""><![CDATA[Management]]></FunctionLevel2>
-      <FunctionLocation><![CDATA[]]></FunctionLocation>
-      <FunctionLocationPostalCode><![CDATA[]]></FunctionLocationPostalCode>
-      <MinimumSalaryAmount>2000</MinimumSalaryAmount>
-      <MaximumSalaryAmount>3000</MaximumSalaryAmount>
+      <VacancyNumber><![CDATA[]]></VacancyNumber>
+      <ContractType></ContractType>
+      <FTE></FTE>
+      <Fulltime></Fulltime>
+      <MinimumHoursPerWeek>32</MinimumHoursPerWeek>
+      <HoursPerWeek>36</HoursPerWeek>
+      <ExperienceRequired id=""><![CDATA[]]></ExperienceRequired>
+      <FunctionLocation><![CDATA[Amsterdam]]></FunctionLocation>
+      <FunctionLocationPostalCode><![CDATA[1091 AC]]></FunctionLocationPostalCode>
+      <MinimumSalaryAmount></MinimumSalaryAmount>
+      <MaximumSalaryAmount></MaximumSalaryAmount>
       <SalaryCurrency></SalaryCurrency>
       <SalaryPeriod></SalaryPeriod>
-      <SalaryLevel>40</SalaryLevel>
+      <SalaryLevel>
+50
+      </SalaryLevel>
       <Regions>
-       <Region id="1">
-         <language id="NL" country="Nederland"><![CDATA[Zuid-Holland]]></language>
-         <language id="DE" country="Niederlande"><![CDATA[Saarland]]></language>
+       <Region id="2">
+         <language id="NL" country="Nederland"><![CDATA[Noord-Holland]]></language>
        </Region>
       </Regions>
       <TargetFillDate><![CDATA[]]></TargetFillDate>
-      <Memo><![CDATA[]]></Memo>
-      <EducationLevel id="21"><![CDATA[HBO]]></EducationLevel>
-      <EducationLevel2 id="1"><![CDATA[WO]]></EducationLevel2>
+      <Memo><![CDATA[25/10
+dit is een test vacature
+RV]]></Memo>
       <FlexFields>
       </FlexFields>
       <Adverts>
-         <AdvertText id="61">
-            <DisplayJobTitle><![CDATA[Oncologie verpleegkundige op oproepbasis]]></DisplayJobTitle>
-            <Subtitle><![CDATA[Ondertitel in &eacute;&eacute;n woord: geweldig]]></Subtitle>
+         <AdvertText id="81">
+            <DisplayJobTitle><![CDATA[Senior Verpleegkundige]]></DisplayJobTitle>
+            <Subtitle><![CDATA[<p>Graag ontvangen wij je sollicitatie via onderstaande link. Of solliciteer per e-mail, richt je sollicitatie onder vermelding van vacaturenummer 13.105 ter attentie van Anne-Marie van Ingen via: <a href="mailto:a.m.v.vaningen@olvg.nl?subject=Reactie%20op%20vacaturenummer%2013.105">a.m.v.vaningen@olvg.nl</a>.</p><p>Wij zouden het leuk vinden als je bij serieuze interesse eerst een dagje mee komt lopen om het werk en het team beter te leren kennen.</p>]]></Subtitle>
             <AdvertLanguage id="1"><![CDATA[Dutch]]></AdvertLanguage>
-            <DisplayOrganisation><![CDATA[OLVG weergave organisatie]]></DisplayOrganisation>
-            <CompanyInformation><![CDATA[<span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">Flexcare is het interne uitzendbureau van het OLVG. Via Flexcare word je ingezet op de verschillende verpleegafdelingen van het OLVG. Jij geeft ons jouw rooster met de dagen en diensten die jij kunt doen en Flexcare plant jou op deze diensten op de diverse afdelingen binnen het OLVG. Ook is het mogelijk om gedurende een langere periode van enkele maanden op 1 afdeling te werken. Laat ons weten wat je wensen zijn!</span>]]></CompanyInformation>
-            <FunctionDescription><![CDATA[<strong>Wat ga je doen?</strong><br />Als oncologieverpleegkundige heb je de zorg over een pati&euml;ntencategorie die specifieke zorg en begeleiding nodig heeft. Verschillende medicamenteuze en chirurgische behandelingen, palliatieve zorg en de psychosociale begeleiding van deze pati&euml;ntencategorie maken het tot een dynamische werkplek.]]></FunctionDescription>
-            <JobRequirements><![CDATA[Je hebt een HBO-V diploma,je hebt ruime ervaring als verpleegkundige en je hebt een oncologieopleiding afgerond.<br />Doorzettingsvermogen, een pati&euml;ntgerichte instelling en flexibiliteit zijn, gezien de aard van de werkzaamheden, van groot belang. Je kan tegen een stootje en in hectische situatie weet je hoe te handelen.]]></JobRequirements>
-            <Compensation><![CDATA[Afhankelijk van je ervaring en opleiding bedraagt je salaris minimaal &euro; 2348,- en maximaal &euro; 3153,- op basis van een 36-urige werkweek. De salarisbedragen zijn afgeleid van FWG-schaal 50. Het betreft een functie voor bepaalde tijd (1 jaar / 1/2 jaar) met uitzicht op verlenging. Bovendien bieden we je een prima reiskostenregeling die je een aanzienlijk betere tegemoetkoming in de reiskosten biedt dan de CAO. Meer informatie over onze arbeidsvoorwaarden.]]></Compensation>
-            <ContactInfo><![CDATA[<span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">Neem dan contact op met de heer R. Blommers, Consultant, bereikbaar onder telefoonnummer (020) 599 3397 op werkdagen, of per e-mail:&nbsp;</span><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=Flexcare@olvg.nl" style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px; color: rgb(27, 19, 130); text-decoration: none;" target="_blank">Flexcare@olvg.nl</a><span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">.</span>
-<div class="attribute-long" style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">
-	<h2 style="margin: 0px; font-family: Arial, Helvetica, sans-serif; line-height: 24px; color: inherit; text-rendering: optimizelegibility; font-size: 16px; padding: 0px;">
-		Solliciteren</h2>
-	<p style="margin: 0px 0px 8px;">Graag ontvangen wij je sollicitatie via onderstaande link. Of solliciteer per e-mail, richt je sollicitatie onder vermelding van vacaturenummer 221122 ter attentie van Flexcare via:&nbsp;<a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=Flexcare@olvg.nl&amp;su=Reactie%20op%20vacaturenummer%20221122" style="color: rgb(27, 19, 130); text-decoration: none;" target="_blank">Flexcare@olvg.nl</a>.</p></div>
-<br />]]></ContactInfo>
+            <DisplayOrganisation><![CDATA[OLVG]]></DisplayOrganisation>
+            <CompanyInformation><![CDATA[<div class="attribute-long">
+	<p>Sinds december 2012 is de afdeling gehuisvest op een compleet nieuwe &amp; moderne vleugel (B4) binnen ons ziekenhuis. Wij verplegen pati&euml;nten uit diverse categorie&euml;n: naast de long oncologie verplegen we ook pati&euml;nten met COPD, maken we onderdeel uit van het slaapcentrum en zijn we een non invasieve beademingsunit. Verder verplegen we pati&euml;nten met interstitiele longproblemen.</p><p>Sinds januari 2013 zijn we gestart met het elektronisch pati&euml;nten dossier. We werken met klinische paden voor de pati&euml;nten met chemotherapie, long oncologie, chirurgie en COPD.</p></div>
+]]></CompanyInformation>
+            <FunctionDescription><![CDATA[<p>Als Senior Verpleegkundige heb je een uitdrukkelijk co&ouml;rdinerende rol op de afdeling. Je begeleidt en coacht jouw collega verpleegkundigen en stagiaires. Je hebt hierin een echte voorbeeldfunctie.<br />De basis ligt in de organisatie van de dagelijkse pati&euml;ntenzorg. De pati&euml;nt voelt zich veilig en vertrouwd dankzij jouw deskundigheid en professionele toegewijde zorg gedurende de periode van een opname. Je neemt het voortouw bij projecten binnen en buiten de afdeling. Daarnaast lever je in nauwe samenspraak met de afdelingsleider, een bijdrage aan het verbeteren van de kwaliteit van zorg en de verdere ontwikkeling van de afdeling. Je werkt veelal dagdiensten (incl. weekend) maar incidenteel ook avond- en nachtdiensten.</p>]]></FunctionDescription>
+            <JobRequirements><![CDATA[<ul><li>Je bent &nbsp;een enthousiaste, leergierige, motiverende, BIG-geregistreerde verpleegkundige met een afgeronde HBO-V</li><li>Je hebt kennis en ervaring als verpleegkundige binnen het specialisme Longgeneeskunde</li><li>Senior met aantoonbare ervaring in veranderprocessen/ verandermanagement</li><li>Je neemt initiatieven en denkt &quot;out of the box&quot;</li><li>Verder herken jij jezelf in het profiel zelfstandig, daadkrachtig, flexibel en stressbestendig</li></ul>]]></JobRequirements>
+            <Compensation><![CDATA[<p>De salarisbedragen zijn afgeleid van FWG-schaal 50. Een boeiende baan met veel zelfstandigheid, fijne collega&#39;s en goede arbeidsvoorwaarden op een gastvrije en ondernemende afdeling, waarbij je de ruimte krijgt om jezelf verder te ontwikkelen. Het betreft een functie voor bepaalde tijd voor de duur van 1 jaar. Bovendien bieden we je een <a href="http://www.werkenbijhetolvg.nl/wat_bieden_we">prima reiskostenregeling</a> die je een aanzienlijk betere tegemoetkoming in de reiskosten biedt dan de CAO. <a href="http://www.werkenbijhetolvg.nl/wat_bieden_we">Meer informatie over onze arbeidsvoorwaarden</a>.</p>]]></Compensation>
+            <ContactInfo><![CDATA[<p>Neem dan contact op met Gerard Kuper, Afdelingsleider, bereikbaar onder telefoonnummer (020) 599 2840 op werkdagen met uitzondering van maandag, of per e-mail: <a href="mailto:J.G.M.Kuper@olvg.nl">J.G.M.Kuper@olvg.nl</a>.</p>]]></ContactInfo>
             <Approved><![CDATA[Yes]]></Approved>
          </AdvertText>
       </Adverts>
       <Publications>
          <Publication pub_id="1">
             <AdvertId>141</AdvertId>
-            <Medium><![CDATA[Eigen website]]></Medium>
-            <DateFrom>27-08-2013</DateFrom>
-            <DateUntil>30-11-2013</DateUntil>
+            <Medium><![CDATA[WerkenbijhetOLVG]]></Medium>
+            <DateFrom>25-10-2013</DateFrom>
+            <DateUntil>02-12-2013</DateUntil>
             <Type id="5"><![CDATA[Own site]]></Type>
             <RegistrationLinks>
-              <RegistrationLink language="Dutch">https://acceptatie.connexys.nl/olvgpublic/run/register$.startup?z_f_taal=1&amp;z_kan_advertentie_id=141</RegistrationLink>
+              <RegistrationLink language="Dutch">https://www.connexys.nl/olvgpublic/run/register$.startup?z_f_taal=1&amp;z_kan_advertentie_id=141</RegistrationLink>
             </RegistrationLinks>
             <VacancyLinks>
-              <VacancyLink language="Dutch">https://acceptatie.connexys.nl/olvgpublic/run/vacancies$.queryview?p_f_taal=1&amp;p_advertentie_id=141&amp;p_pub_id=2</VacancyLink>
-            </VacancyLinks>
-         </Publication>
-      </Publications>
-   </Vacancy>
-   <Vacancy id="242">
-      <VacancyName><![CDATA[AIOS Ziekenhuispsychiatrie]]></VacancyName>
-      <OrganizationUnit typename="Organisatie" type="1" level="2" id="21">
-      <name><![CDATA[Naam eigen organisatie]]></name>
-      <OrganizationUnit typename="Afdeling" type="3" level="1" id="81">
-      <name><![CDATA[Afdeling test]]></name>
-      </OrganizationUnit>
-      </OrganizationUnit>
-      <Recruiter cpn_id="1">
-         <Initials><![CDATA[]]></Initials>
-         <FirstName><![CDATA[]]></FirstName>
-         <SurnamePrefix><![CDATA[]]></SurnamePrefix>
-         <Surname><![CDATA[Beheerder]]></Surname>
-         <WorkEmail><![CDATA[null@connexys.nl]]></WorkEmail>
-         <WorkPhone><![CDATA[]]></WorkPhone>
-         <Gender><![CDATA[Male]]></Gender>
-         <SocialProfiles>
-         </SocialProfiles>
-         <Photos>
-         </Photos>
-      </Recruiter>
-      <HiringManager cpn_id="1181">
-         <Initials><![CDATA[]]></Initials>
-         <FirstName><![CDATA[Hiring]]></FirstName>
-         <SurnamePrefix><![CDATA[]]></SurnamePrefix>
-         <Surname><![CDATA[Manager]]></Surname>
-         <WorkEmail><![CDATA[null@connexys.com]]></WorkEmail>
-         <WorkPhone><![CDATA[]]></WorkPhone>
-         <Gender><![CDATA[Female]]></Gender>
-         <SocialProfiles>
-         </SocialProfiles>
-         <Photos>
-         </Photos>
-      </HiringManager>
-      <Function id="21"><![CDATA[Manager]]></Function>
-      <FunctionGroup1 id="23">
-         <language id="NL"><![CDATA[Opleiding/onderwijs/onderzoek]]></language>
-      </FunctionGroup1>
-      <FunctionGroup1Type id=""><![CDATA[]]></FunctionGroup1Type>
-      <DateFrom>29-08-2013</DateFrom>
-      <DateClosed></DateClosed>
-      <Filled><![CDATA[Open]]></Filled>
-      <VacancyNumber><![CDATA[]]></VacancyNumber>
-      <ContractType></ContractType>
-      <FTE></FTE>
-      <Fulltime></Fulltime>
-      <MinimumHoursPerWeek>20</MinimumHoursPerWeek>
-      <HoursPerWeek>40</HoursPerWeek>
-      <ExperienceRequired id=""><![CDATA[]]></ExperienceRequired>
-      <FunctionLocation><![CDATA[]]></FunctionLocation>
-      <FunctionLocationPostalCode><![CDATA[]]></FunctionLocationPostalCode>
-      <MinimumSalaryAmount></MinimumSalaryAmount>
-      <MaximumSalaryAmount></MaximumSalaryAmount>
-      <SalaryCurrency></SalaryCurrency>
-      <SalaryPeriod></SalaryPeriod>
-      <SalaryLevel>
-      </SalaryLevel>
-      <Regions>
-       <Region id="1">
-         <language id="NL" country="Nederland"><![CDATA[Zuid-Holland]]></language>
-         <language id="DE" country="Niederlande"><![CDATA[Saarland]]></language>
-       </Region>
-      </Regions>
-      <TargetFillDate><![CDATA[]]></TargetFillDate>
-      <Memo><![CDATA[]]></Memo>
-      <FlexFields>
-      </FlexFields>
-      <Adverts>
-         <AdvertText id="62">
-            <DisplayJobTitle><![CDATA[AIOS Ziekenhuispsychiatrie]]></DisplayJobTitle>
-            <Subtitle><![CDATA[<br />]]></Subtitle>
-            <AdvertLanguage id="1"><![CDATA[Dutch]]></AdvertLanguage>
-            <DisplayOrganisation><![CDATA[Unit Psychiatrie en Medische Psychologie]]></DisplayOrganisation>
-            <CompanyInformation><![CDATA[In 2014 zijn in het Onze Lieve Vrouwe Gasthuis keuzestageplaatsen ziekenhuispsychiatrie (aandachtsgebied volwassen en/of ouderen) beschikbaar.<br /><br />Er zijn 2 soorten stages: een stage complexe klinische ziekenhuispsychiatrie op de MPU, en stages consultatieve ziekenhuispsychiatrie op de PCD &amp; polikliniek. De stageduur is &frac12; tot 1 jaar met:<br /><ul><li>een stimulerend en veilig opleidingsklimaat</li><li>dagelijkse individuele werkbegeleiding</li><li>wekelijkse grote visite &amp;bedside teaching</li><li>wekelijkse individuele mentorgesprekken</li><li>een intern onderwijsprogramma gericht op de ziekenhuispsychiatrie</li><li>structureel ingeplande tijd voor de module ziekenhuispsychiatrie i.k.v. HOOP</li><li>vakgroepoverstijgend onderwijs voor de AIOS&rsquo; van alle specialismen in het OLVG</li><li>mogelijkheid om poliklinisch psychotherapeutische behandelingen onder supervisie te verrichten</li><li>mogelijkheid om te participeren in wetenschappelijk onderzoek of het schrijven van een case-report (al waarvoor structureel ingeplande tijd)</li></ul>Wij leveren pati&euml;ntenzorg in drie settingen:<br /><br />Psychiatrisch Consultatieve Dienst (PCD): In de PCD ziet de AIOS samen met de CPV pati&euml;nten o.v.v. de somatisch hoofdbehandelaar. Doorgaans leidt dit tot een actieve psychiatrische medebehandeling. De focus ligt hierbij op somatisch zieke pati&euml;nten met comorbidepsycho-organische stoornissen, cognitieve stoornissen, delieren, stemmings-, angst- en aanpassingsstoornissen, verslaving en gedragsstoornissen.<br /><br />Medisch-Psychiatrische Unit (MPU): De MPU heeft 5 bedden. Alle pati&euml;nten zijn primair opgenomen voor de somatisch specialist, meestal de internist, welk gedurende de MPU-opname t.a.v. de somatiek hoofdbehandelaar blijft. Indicatie voor opname op de MPU geschied door de PCD o.b.v. ernst van co-morbide psycho-pathologie. Op de MPU is de AIOS-psychiatrie zaalarts en voert als psychiatrisch hoofdbehandelaar samen met het gespecialiseerde verpleegkundige team de psychiatrische behandeling uit. In rol van zorgco&ouml;rdinator stemt de AIOS de medische zorg voor complexe pati&euml;nten af met verschillende medisch specialisten, onder andere middels 2 x per week de &lsquo;grote visite&rsquo; met de internist en MPU-psychiater.<br /><br />Polikliniek Psychiatrie en Medische Psychologie: Op de polikliniek ziet de AIOS pati&euml;nten die verwezen worden door verschillende specialismen in het ziekenhuis. De focus ligt hierbij op consultaties i.v.m. psychopathologie bij zwangeren, psychopathologie als gevolg van medicatie, psychopathologie bij of gerelateerd aan een somatische aandoening (oncologische ziekten, HIV, Hepatitis, cardiologische ziekten), seksuologische problemen bij somatisch zieken, en somatoforme stoornissen. Een deel van deze pati&euml;nten komt ook in aanmerking voor specialistische ziekenhuispsychiatrische behandeling of psychotherapie. Tevens participeren wij in de multidisciplinaire ouderen-polikliniek samen met internist-ouderengeneeskunde, neuroloog en neuropsycholoog.<br /><br />24-uurs-diensten: Samen met de psychiaters hebben de AIOS 24-uurs bereikbaarheidsdiensten t.b.v. de kliniek en de SEH. Er is een nauwe samenwerking met de Stedelijke Crisisdienst die de psychiatrische consulten op de SEH buiten kantoortijden verricht.]]></CompanyInformation>
-            <FunctionDescription><![CDATA[De unit Psychiatrie en Medische Psychologie van het OLVG is een multidisciplinaire afdeling. Ziekenhuispsychiaters, AIOS psychiatrie en huisartsgeneeskunde, consultatief psychiatrisch verpleegkundigen (CPV), MPU-verpleegkundigen, psychologen, maatschappelijk werkers en seksuologen werken nauw samen met overige medisch specialisten en zorgprofessionals t.b.v. ge&iuml;ntegreerde zorg voor pati&euml;nten met co-morbiditeit.<br />Jaarlijks worden 5 &agrave; 6 (fte) AIOS&rsquo; opgeleid in de ziekenhuispsychiatrie. In het OLVG wordt een zeer diverse pati&euml;ntenpopulatie behandeld.]]></FunctionDescription>
-            <JobRequirements><![CDATA[Enthousiaste AIOS psychiatrie die zich actief willen verdiepen in het aandachtsgebied van de ziekenhuispsychiatrie in het kader van de opleiding tot volwassenen- of ouderenpsychiater.]]></JobRequirements>
-            <Compensation><![CDATA[<span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">Het betreft een functie voor bepaalde tijd. Bovendien bieden we je een&nbsp;</span><a href="http://www.werkenbijhetolvg.nl/wat_bieden_we" style="color: rgb(27, 19, 130); text-decoration: none; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">prima reiskostenregeling</a><span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">&nbsp;die je een aanzienlijk betere tegemoetkoming in de reiskosten biedt dan de CAO.&nbsp;</span><a href="http://www.werkenbijhetolvg.nl/wat_bieden_we" style="color: rgb(27, 19, 130); text-decoration: none; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">Meer informatie over onze arbeidsvoorwaarden</a><span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">.</span>]]></Compensation>
-            <ContactInfo><![CDATA[<span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">Neem dan contact op met Tjeerd van Benthem, psychiater en stage-opleider Ziekenhuispsychiatrie, bereikbaar onder telefoonnummer (020) 599 3985 op werkdagen, of per e-mail:&nbsp;</span><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=t.b.vanbenthem@olvg.nl" style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px; color: rgb(27, 19, 130); text-decoration: none;" target="_blank">t.b.vanbenthem@olvg.nl</a><span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">.</span>
-<div class="attribute-long" style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">
-	<p style="margin: 0px 0px 8px;">Of neem contact op met Jeroen Lijmer, psychiater en beoogd stage-opleider , bereikbaar onder telefoonnummer (020) 599 3594 op werkdagen, of per e-mail:<a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=j.g.lijmer@olvg.nl" style="color: rgb(27, 19, 130); text-decoration: none;" target="_blank">j.g.lijmer@olvg.nl</a>.</p><p style="margin: 0px 0px 8px;">Kijk voor verdere informatie op:<br /><a class="standard" href="http://www.opleidingsetalage.nl/nieuws/nieuwsbericht/financiering-medische-vervolgopleidingen-gewijzigd.html" style="color: rgb(27, 19, 130); text-decoration: none;" target="_self">http://www.opleidingsetalage.nl/nieuws/nieuwsbericht/financiering-medische-vervolgopleidingen-gewijzigd.html</a></p></div>
-<div class="attribute-long" style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">
-	<h2 style="margin: 0px; font-family: Arial, Helvetica, sans-serif; line-height: 24px; color: inherit; text-rendering: optimizelegibility; font-size: 16px; padding: 0px;">
-		&nbsp;</h2>
-</div>
-<br />]]></ContactInfo>
-            <Approved><![CDATA[Yes]]></Approved>
-         </AdvertText>
-      </Adverts>
-      <Publications>
-         <Publication pub_id="1">
-            <AdvertId>144</AdvertId>
-            <Medium><![CDATA[Eigen website]]></Medium>
-            <DateFrom>29-08-2013</DateFrom>
-            <DateUntil>31-10-2013</DateUntil>
-            <Type id="5"><![CDATA[Own site]]></Type>
-            <RegistrationLinks>
-              <RegistrationLink language="Dutch">https://acceptatie.connexys.nl/olvgpublic/run/register$.startup?z_f_taal=1&amp;z_kan_advertentie_id=144</RegistrationLink>
-            </RegistrationLinks>
-            <VacancyLinks>
-              <VacancyLink language="Dutch">https://acceptatie.connexys.nl/olvgpublic/run/vacancies$.queryview?p_f_taal=1&amp;p_advertentie_id=144&amp;p_pub_id=1</VacancyLink>
-            </VacancyLinks>
-         </Publication>
-      </Publications>
-   </Vacancy>
-   <Vacancy id="243">
-      <VacancyName><![CDATA[Ziekenhuispsychiater]]></VacancyName>
-      <OrganizationUnit typename="Organisatie" type="1" level="2" id="21">
-      <name><![CDATA[Naam eigen organisatie]]></name>
-      <OrganizationUnit typename="Afdeling" type="3" level="1" id="81">
-      <name><![CDATA[Afdeling test]]></name>
-      </OrganizationUnit>
-      </OrganizationUnit>
-      <Recruiter cpn_id="1">
-         <Initials><![CDATA[]]></Initials>
-         <FirstName><![CDATA[]]></FirstName>
-         <SurnamePrefix><![CDATA[]]></SurnamePrefix>
-         <Surname><![CDATA[Beheerder]]></Surname>
-         <WorkEmail><![CDATA[null@connexys.nl]]></WorkEmail>
-         <WorkPhone><![CDATA[]]></WorkPhone>
-         <Gender><![CDATA[Male]]></Gender>
-         <SocialProfiles>
-         </SocialProfiles>
-         <Photos>
-         </Photos>
-      </Recruiter>
-      <HiringManager cpn_id="1181">
-         <Initials><![CDATA[]]></Initials>
-         <FirstName><![CDATA[Hiring]]></FirstName>
-         <SurnamePrefix><![CDATA[]]></SurnamePrefix>
-         <Surname><![CDATA[Manager]]></Surname>
-         <WorkEmail><![CDATA[null@connexys.com]]></WorkEmail>
-         <WorkPhone><![CDATA[]]></WorkPhone>
-         <Gender><![CDATA[Female]]></Gender>
-         <SocialProfiles>
-         </SocialProfiles>
-         <Photos>
-         </Photos>
-      </HiringManager>
-      <Function id="21"><![CDATA[Manager]]></Function>
-      <FunctionGroup1 id="22">
-         <language id="NL"><![CDATA[Medisch/paramedisch]]></language>
-      </FunctionGroup1>
-      <FunctionGroup1Type id=""><![CDATA[]]></FunctionGroup1Type>
-      <DateFrom>29-08-2013</DateFrom>
-      <DateClosed></DateClosed>
-      <Filled><![CDATA[Open]]></Filled>
-      <VacancyNumber><![CDATA[]]></VacancyNumber>
-      <ContractType></ContractType>
-      <FTE></FTE>
-      <Fulltime></Fulltime>
-      <MinimumHoursPerWeek>24</MinimumHoursPerWeek>
-      <HoursPerWeek>32</HoursPerWeek>
-      <ExperienceRequired id=""><![CDATA[]]></ExperienceRequired>
-      <FunctionLocation><![CDATA[]]></FunctionLocation>
-      <FunctionLocationPostalCode><![CDATA[]]></FunctionLocationPostalCode>
-      <MinimumSalaryAmount></MinimumSalaryAmount>
-      <MaximumSalaryAmount></MaximumSalaryAmount>
-      <SalaryCurrency></SalaryCurrency>
-      <SalaryPeriod></SalaryPeriod>
-      <SalaryLevel>
-      </SalaryLevel>
-      <Regions>
-       <Region id="1">
-         <language id="NL" country="Nederland"><![CDATA[Zuid-Holland]]></language>
-         <language id="DE" country="Niederlande"><![CDATA[Saarland]]></language>
-       </Region>
-      </Regions>
-      <TargetFillDate><![CDATA[]]></TargetFillDate>
-      <Memo><![CDATA[]]></Memo>
-      <FlexFields>
-      </FlexFields>
-      <Adverts>
-         <AdvertText id="63">
-            <DisplayJobTitle><![CDATA[Ziekenhuispsychiater]]></DisplayJobTitle>
-            <Subtitle><![CDATA[]]></Subtitle>
-            <AdvertLanguage id="1"><![CDATA[Dutch]]></AdvertLanguage>
-            <DisplayOrganisation><![CDATA[]]></DisplayOrganisation>
-            <CompanyInformation><![CDATA[De unit Psychiatrie en Medische Psychologie is een multidisciplinaire afdeling waar ziekenhuispsychiaters, medisch psychologen, verpleegkundig specialisten, maatschappelijk werkers en seksuologen co-morbiditeitszorg ge&iuml;ntegreerd vormgeven. Er is een co-morbiditeitspolikliniek, PCD en MPU, waarbinnen wij nauw samenwerken met overige medisch specialisten. Jaarlijks worden 6 (fte) AIOS door ons opgeleid in de ziekenhuispsychiatrie. De vakgroep is in gesprek met de vakgroep van het SLAZ over de toekomstige samenwerking.<br /><br />De vakgroep Psychiatrie en Medische Psychologie is op zoek naar een<br /><ul><li><strong>5e ziekenhuispsychiater (0,5 fte)</strong></li></ul>]]></CompanyInformation>
-            <FunctionDescription><![CDATA[<span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">U zoekt een functie waarin u uw ambities als medisch staflid met betrekking tot het bijdragen aan kwaliteit, zorgvernieuwing en ziekenhuiscommissies tot hun recht kunt laten komen. Ook wilt u uw onderwijs- en opleidingscapaciteiten in een professionele werkomgeving inzetten.</span><p style="margin: 0px 0px 8px; color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">Wij zoeken een allround ziekenhuispsychiater met affiniteit voor poliklinische co-morbiditeitsbehandelingen. Collegialiteit, flexibiliteit en ondernemingsgeest zijn voor ons belangrijke kernwaarden.</p>]]></FunctionDescription>
-            <JobRequirements><![CDATA[]]></JobRequirements>
-            <Compensation><![CDATA[<span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">Wij bieden een afwisselende en uitdagende functie in een plezierige en ambitieuze werkomgeving. Aanstelling vindt plaats in dienstverband, in eerste instantie voor de duur van &eacute;&eacute;n jaar met de intentie tot aanstelling voor onbepaalde tijd. Salari&euml;ring is afgeleid van de AMS.</span>]]></Compensation>
-            <ContactInfo><![CDATA[<span style="color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">Voor meer informatie kunt u contact opnemen met psychiaters Barbara Portier, vakgroepvoorzitter en Tjeerd van Benthem, unitvoorzitter via telefoon 020-599 3043 of met de heer drs. P.E. van der Meer, vicevoorzitter Raad van Bestuur, telefoon 020-599 3027.</span><p style="margin: 0px 0px 8px; color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;">Uw schriftelijke sollicitatie, vergezeld van curriculum vitae, kunt u tot 4 oktober 2013 richten aan de heer drs. P.E. van der Meer, vicevoorzitter Raad van Bestuur, postbus 95500, 1090 HM Amsterdam of per e-mail&nbsp;<a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=raadvanbestuur@olvg.nl" style="color: rgb(27, 19, 130); text-decoration: none;" target="_blank">raadvanbestuur@olvg.nl</a>.</p><p style="margin: 0px 0px 8px; color: rgb(125, 125, 125); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px;"><i>Deze werving wordt ook geplaatst in de vakbladen Medisch Contact en Tijdschrift voor Psychiatrie.</i></p>]]></ContactInfo>
-            <Approved><![CDATA[Yes]]></Approved>
-         </AdvertText>
-      </Adverts>
-      <Publications>
-         <Publication pub_id="1">
-            <AdvertId>145</AdvertId>
-            <Medium><![CDATA[Eigen website]]></Medium>
-            <DateFrom>29-08-2013</DateFrom>
-            <DateUntil></DateUntil>
-            <Type id="5"><![CDATA[Own site]]></Type>
-            <RegistrationLinks>
-              <RegistrationLink language="Dutch">https://acceptatie.connexys.nl/olvgpublic/run/register$.startup?z_f_taal=1&amp;z_kan_advertentie_id=145</RegistrationLink>
-            </RegistrationLinks>
-            <VacancyLinks>
-              <VacancyLink language="Dutch">https://acceptatie.connexys.nl/olvgpublic/run/vacancies$.queryview?p_f_taal=1&amp;p_advertentie_id=145&amp;p_pub_id=1</VacancyLink>
+              <VacancyLink language="Dutch">https://www.connexys.nl/olvgpublic/run/vacancies$.queryview?p_f_taal=1&amp;p_advertentie_id=141&amp;p_pub_id=1</VacancyLink>
             </VacancyLinks>
          </Publication>
       </Publications>
