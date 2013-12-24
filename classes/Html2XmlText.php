@@ -35,6 +35,8 @@ class XmlTextParser
 		
 		// remove unsupported tags
 		$html = strip_tags( $html, '<p><a><i><em><h><br><h1><h2><h3><h4><h5><h6><anchor><strong><literal><li><ul><ol><th><td><tr><table><embed>' );
+		// remove tag attributes. Some might break the parser like <ul class='standard'>
+		$html = preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $html);
 		// convert html entities like &euml; to utf8
 		$html = html_entity_decode( $html );
 		$parser = new eZSimplifiedXMLInputParser( null );
