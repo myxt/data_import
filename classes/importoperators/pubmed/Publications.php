@@ -47,21 +47,23 @@ class Publications extends ImportOperator
     //print_r( $this->source_handler->sourceIdArray );
     $this->cli->output( "\nChecking existing publications eZ Publish.\n", false );
     
-    $classIdentifier = $this->source_handler->classIdentifier;
-    $parentNode = eZContentObjectTreeNode::fetch( $this->source_handler->parentNodeID );
-    $nodes = $parentNode->attribute( 'children' );
-
-    foreach( $nodes as $node )
+    $offset = 0;
+    $limit = 5;
+    $max = 10000;
+    $total = 1;
+    $publicationClassID = eZContentObjectTreeNode::classIDByIdentifier( $this->source_handler->classIdentifier );
+    while( $publications = eZContentObject::fetchFilteredList( array( 'contentclass_id' => $publicationClassID ), $offset, $limit ) )
     {
-      if( $node->ClassIdentifier == $classIdentifier )
+      if( !count($publications) || $total > $max ) break;
+
+      foreach( $publications as $object )
       {
-        $object = eZContentObject::fetchByNodeID( $node->attribute('node_id') );
         $remoteID = $object->attribute('remote_id');
         
         $this->cli->output( "  Checking object (".$this->cli->stylize( 'emphasize', $remoteID ).") of type (".$this->cli->stylize( 'emphasize', $this->source_handler->getTargetContentClass() ).")... " , false );
         $sourceID = $this->extractIdFromRemoteId( $remoteID );
 
-        if( $object->attribute('data_map')[manual_override]->attribute('content') )
+        if( isset( $object->attribute('data_map')['manual_override'] ) && $object->attribute('data_map')['manual_override']->attribute('content') )
         {
           $this->cli->output( $this->cli->stylize( 'gray', "skipped (manual).\n" ), false );
         }
@@ -74,10 +76,11 @@ class Publications extends ImportOperator
         }
         else
         {
-
           $this->cli->output( $this->cli->stylize( 'gray', "skipped.\n" ), false );
         }
+        $total += 1;
       }
+      $offset += $limit;
     }
   }
 
