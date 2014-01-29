@@ -15,7 +15,7 @@ class Publications extends ImportOperator
   {
     $offset = 0;
     $limit = 5;
-    $max = 5;
+    $max = 10000;
     $total = 1;
     $employeeClassID = eZContentObjectTreeNode::classIDByIdentifier( 'employee' );
 
