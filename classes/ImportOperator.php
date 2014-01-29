@@ -295,6 +295,22 @@ class ImportOperator
 			}
 		}
 	}
+
+	public function remove_eZ_object( eZContentObject $eZ_object )
+	{
+		$object_id = $eZ_object->attribute('id');
+		$assigned_nodes = $eZ_object->attribute('assigned_nodes');
+		
+		$deleteIDArray = array();
+		
+		foreach($assigned_nodes as $assigned_node)
+		{
+			$assigned_node->remove();
+		}
+		
+		$eZ_object->remove();
+		$eZ_object->purge();
+	}
 }
 
 ?>

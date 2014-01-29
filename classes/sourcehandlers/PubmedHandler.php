@@ -7,10 +7,9 @@ class PubmedHandler extends SourceHandler
     public $first_field = true;
     public $current_employee;
 
-    public $source_file;
-    public $dom;
+    public $sourceIdArray = array();
 
-    public $idPrepend = 'remote_pubmed_';
+    public $idPrepend = 'pubmed_';
     public $handlerTitle = 'Pubmed Publications Handler';
 
     public $current_loc_info = array();
@@ -53,7 +52,7 @@ class PubmedHandler extends SourceHandler
 
     public function getDataRowId()
     {
-        return self::REMOTE_IDENTIFIER.$this->current_row['articleid'];
+        return self::REMOTE_IDENTIFIER.$this->current_row['pmid'];
     }
 
     public function getTargetContentClass()
@@ -61,38 +60,67 @@ class PubmedHandler extends SourceHandler
         return $this->classIdentifier;
     }
 
-    public function readData()
+    public function readData( $employees )
     {
         $data = array();
+        $idArray = array();
 
-        $employeeClassID = eZContentObjectTreeNode::classIDByIdentifier( 'employee' );
-        $employees = eZContentObject::fetchFilteredList( array( 'contentclass_id' => $employeeClassID ), 0, 3 );
-        
         foreach( $employees as $employee )
         {
 
-          $map = $employee->attribute('data_map');
+            $map = $employee->attribute('data_map');
+            if( $map['publications_link']->attribute('has_content') )
+            {
+                $searchTerm = $this->linkBasedSearchTerm( $employee );
+            }
+            else
+            {
+                $searchTerm = $this->nameBasedSearchTerm( $employee );
+            }
 
-          //@TODO Implement query override attribute
+            $results = $this->API->query( $searchTerm );
 
-          $insertion = trim( $map['insertion']->attribute('content') );
-          $lastName = trim( $map['last_name']->attribute('content') );
-          if( $insertion ) $lastName = $insertion . "+" . $lastName;
-          $initials = str_replace( array( ".", " " ), "", trim( $map['initials']->attribute('content') ) );
-          $searchTerm = $lastName . "+" . $initials;
-          $results = $this->API->query($searchTerm);
+            // Bouwt een array van publicatie id's uit de geimporteerde data,
+            // nodig om ontbrekende publicaties uit eZ te verwijderen.
+            // Voegt eventuele nieuwe attributen toe.
+            foreach( $results as $key => $result )
+            {
+                $idArray[] = $result['pmid'];
+                $results[$key]['employees'] = '';
+            }
 
-          $data[$employee->ID] = array(
-            'object' => $employee,
-            'results' => $results
-          );
+            $data[$employee->ID] = array(
+                'object' => $employee,
+                'results' => $results
+            );
 
-          //print_r($results);
-          //foreach( $results as $result )
-          //  echo '[[[' . $result['title'] . ']]]' . PHP_EOL;
+            //print_r($results);
+            //foreach( $results as $result )
+            //  echo '[[[' . $result['title'] . ']]]' . PHP_EOL;
 
         }
         $this->data = $data;
+        $this->sourceIdArray = array_merge( $this->sourceIdArray, $idArray );
+    }
+
+    private function linkBasedSearchTerm( $employee )
+    {
+        $map = $employee->attribute('data_map');
+        $publicationLinks = $map['publications_link']->attribute('content');
+        $urlParts = parse_url( $publicationLinks );
+        parse_str( $urlParts['query'] );
+        return $term;
+    }
+
+    private function nameBasedSearchTerm( $employee )
+    {
+        $map = $employee->attribute('data_map');
+
+        $insertion = trim( $map['insertion']->attribute('content') );
+        $lastName = trim( $map['last_name']->attribute('content') );
+        if( $insertion ) $lastName = $insertion . "+" . $lastName;
+        $initials = str_replace( array( ".", " " ), "", trim( $map['initials']->attribute('content') ) );
+        return $lastName . "+" . $initials;
     }
 
     public function getNextEmployee()
@@ -128,7 +156,7 @@ class PubmedHandler extends SourceHandler
             $this->current_row = next( $this->data[$this->current_employee['object']->ID]['results'] );
         }
 
-        //if($this->current_row['articleid'] == 8455427)
+        //if($this->current_row['pmid'] == 8455427)
         // 111 print_r($this->current_row);
         return $this->current_row;
     }
@@ -164,7 +192,27 @@ class PubmedHandler extends SourceHandler
     {
         //if( $contentObjectAttribute->ContentClassAttributeIdentifier == 'title' )
         // 000 print_r($this->current_field['value']);
-        return $this->current_field['value'];
+        
+        switch ( $contentObjectAttribute->ContentClassAttributeIdentifier ) {
+
+            case 'authors':
+                return implode( ", ", $this->current_row['authors'] );
+
+            case 'employees': // object relation list
+                $content = $contentObjectAttribute->content();
+                $priority = 1;
+                //$result = eZSearch::search( $author, array( 'SearchContentClassID' => array( 20 ) ) );
+                //print_r($result);
+                //$content['relation_list'][] = eZObjectRelationListType::appendObject( $this->current_employee['object']->ID, $priority, $contentObjectAttribute );
+                $content = $this->current_employee['object']->ID;
+                //$contentObjectAttribute->setContent( $content );
+                //$contentObjectAttribute->store();
+                return $content;
+
+            default:
+                return $this->current_field['value'];
+        }
+
     }
 
     public function geteZAttributeIdentifierFromField()
