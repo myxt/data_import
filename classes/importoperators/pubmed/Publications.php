@@ -16,15 +16,18 @@ class Publications extends ImportOperator
     $offset = 0;
     $limit = 5;
     $max = 10000;
-    $total = 1;
+    $total = 0;
     $employeeClassID = eZContentObjectTreeNode::classIDByIdentifier( 'employee' );
 
     while( $employees = eZContentObject::fetchFilteredList( array( 'contentclass_id' => $employeeClassID ), $offset, $limit ) )
     {
       if( !count($employees) || $total > $max ) break;
 
+      $this->cli->output( "\nFetched with offset " . $offset . ". Total is " . $total . ".\n", false );
+
       $this->source_handler->readData( $employees );
 
+      $this->source_handler->first_employee = true; // Reset employee counter
       while( $this->source_handler->getNextEmployee() )
       {
         $this->cli->output( "\nUpdating publications for employee " . $this->cli->stylize( 'emphasize', $this->source_handler->current_employee['object']->Name . " (" . $this->source_handler->current_employee['object']->ID . ")" ) . ":\n", false );
@@ -32,7 +35,6 @@ class Publications extends ImportOperator
         $total += 1;
       }
 
-      $this->cli->output( "\n" . $total . "-" . $total + $limit . "\n", false );
       $offset += $limit;
     }
 
