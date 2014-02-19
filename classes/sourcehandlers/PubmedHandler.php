@@ -76,7 +76,8 @@ class PubmedHandler extends SourceHandler
             $node = $employee->attribute('main_node');
             if( !$node )
                 continue;
-            if( $employee->attribute('main_node')->attribute('is_hidden') == 1 )
+            if( $employee->attribute('main_node')->attribute('is_invisible') == 1 || 
+                $employee->attribute('main_node')->attribute('is_hidden') == 1 )
                 continue;
 
             // Only include doctors.
