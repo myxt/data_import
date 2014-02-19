@@ -73,6 +73,9 @@ class PubmedHandler extends SourceHandler
             $map = $employee->attribute('data_map');
 
             // Only include visible employees
+            $node = $employee->attribute('main_node');
+            if( !$node )
+                continue;
             if( $employee->attribute('main_node')->attribute('is_hidden') == 1 )
                 continue;
 
