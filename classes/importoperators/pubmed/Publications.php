@@ -36,7 +36,7 @@ class Publications extends ImportOperator
       $offset += $limit;
     }
 
-    $this->cli->output( "\nProcessed " . $total . " employees with a total of " . count( $this->source_handler->sourceIdArray ) . " PubMed records.\n", false );
+    $this->cli->output( "\nProcessed " . $total . " employees with a total of " . count( $this->source_handler->sourceIdCache ) . " PubMed records.\n", false );
 
     $this->checkExistingPublications();
   
@@ -44,11 +44,11 @@ class Publications extends ImportOperator
 
   public function checkExistingPublications()
   {
-    //print_r( $this->source_handler->sourceIdArray );
+    //print_r( $this->source_handler->sourceIdCache );
     $this->cli->output( "\nChecking existing publications eZ Publish.\n", false );
     
     $offset = 0;
-    $limit = 5;
+    $limit = 100;
     $max = 10000;
     $total = 1;
     $publicationClassID = eZContentObjectTreeNode::classIDByIdentifier( $this->source_handler->classIdentifier );
@@ -68,9 +68,14 @@ class Publications extends ImportOperator
           $this->cli->output( $this->cli->stylize( 'gray', "skipped (manual).\n" ), false );
         }
 
-        elseif( !in_array( $sourceID , $this->source_handler->sourceIdArray ) )
+        elseif( !in_array( $sourceID , $this->source_handler->sourceIdCache ) )
         {
-          $this->remove_eZ_object( $object );
+          try {
+            $this->remove_eZ_object( $object );
+          }
+          catch( Exception $e ) {
+            $this->cli->output( "Error deleting object.", false );
+          }
           $this->cli->output( $this->cli->stylize( 'green', "successfully removed.\n" ), false );
           $clearCache = true;
         }
@@ -82,6 +87,7 @@ class Publications extends ImportOperator
       }
       $offset += $limit;
     }
+
   }
 
   public function importRemotePublications()
@@ -209,7 +215,9 @@ class Publications extends ImportOperator
         $contentObjectAttribute->setContent( $content );
         $contentObjectAttribute->store();
         */
+        
         $value = $this->source_handler->getValueFromField( $contentObjectAttribute );
+
       }
       break;
 
@@ -226,6 +234,7 @@ class Publications extends ImportOperator
    * @param  [type] $force_exit [description]
    * @return [type]             [description]
    */
+  /*
   protected function publish_eZ_node( $force_exit )
   {
     if( $this->storeMode == 'create' )
@@ -242,5 +251,6 @@ class Publications extends ImportOperator
       
     return $this->source_handler->post_publish_handling( $this->current_eZ_object, $force_exit );
   }
+  */
 
 }

@@ -7,13 +7,15 @@ class PubmedHandler extends SourceHandler
     public $first_field = true;
     public $current_employee;
 
-    public $sourceIdArray = array();
+    // Caches
+    public $sourceIdCache = array();
+    public $employeeSearchCache = array();
 
     public $idPrepend = 'pubmed_';
     public $handlerTitle = 'Pubmed Publications Handler';
 
     public $current_loc_info = array();
-    public $logfile = 'images_import.log';
+    public $logfile = 'pubmed_import.log';
     public $remoteID = '';
     public $classIdentifier = 'publication';
     public $parentNodeID = 2;
@@ -100,7 +102,7 @@ class PubmedHandler extends SourceHandler
 
         }
         $this->data = $data;
-        $this->sourceIdArray = array_merge( $this->sourceIdArray, $idArray );
+        $this->sourceIdCache = array_merge( $this->sourceIdCache, $idArray );
     }
 
     private function linkBasedSearchTerm( $employee )
@@ -112,7 +114,7 @@ class PubmedHandler extends SourceHandler
         return $term;
     }
 
-    private function nameBasedSearchTerm( $employee )
+    private function nameBasedSearchTerm( $employee, $delimiter = "+" )
     {
         $map = $employee->attribute('data_map');
 
@@ -120,7 +122,7 @@ class PubmedHandler extends SourceHandler
         $lastName = trim( $map['last_name']->attribute('content') );
         if( $insertion ) $lastName = $insertion . "+" . $lastName;
         $initials = str_replace( array( ".", " " ), "", trim( $map['initials']->attribute('content') ) );
-        return $lastName . "+" . $initials;
+        return $lastName . $delimiter . $initials;
     }
 
     public function getNextEmployee()
@@ -196,23 +198,55 @@ class PubmedHandler extends SourceHandler
         switch ( $contentObjectAttribute->ContentClassAttributeIdentifier ) {
 
             case 'authors':
-                return implode( ", ", $this->current_row['authors'] );
+                $employeeName = $this->formatName( $this->current_employee['object'] );
+                $authors = implode( ", ", $this->current_row['authors'] );
+                str_replace( $employeeName, "[b]" . $employeeName . "[/b]", $authors );
+                return $authors;                
 
             case 'employees': // object relation list
                 $content = $contentObjectAttribute->content();
-                $priority = 1;
-                //$result = eZSearch::search( $author, array( 'SearchContentClassID' => array( 20 ) ) );
-                //print_r($result);
-                //$content['relation_list'][] = eZObjectRelationListType::appendObject( $this->current_employee['object']->ID, $priority, $contentObjectAttribute );
-                $content = $this->current_employee['object']->ID;
-                //$contentObjectAttribute->setContent( $content );
-                //$contentObjectAttribute->store();
-                return $content;
+                $newContent = Array();
+                $new = true;
+                
+                foreach( $content['relation_list'] as $relation ) {
+                    if( $relation['contentobject_id'] == $this->current_employee['object']->ID )
+                        $new = false;
+                    $newContent[] = $relation['contentobject_id'];
+                }
+
+                // If we have more that one OLVG author in this publication, and this is a new author.
+                if( $new ) {
+                    $newContent[] = $this->current_employee['object']->ID;
+                }
+
+                return implode( '-', $newContent );
 
             default:
                 return $this->current_field['value'];
         }
 
+    }
+
+    public function formatName( $employee ) {
+        return $this->nameBasedSearchTerm( $employee, " " );
+    }
+
+    public function isExistingEmployee( $name ) {
+        $name = strtolower( $name );
+//print_r($this->employeeSearchCache);
+        // Check cache if we already queried for this employee.
+        if( isset( $this->employeeSearchCache[$name] ) )
+            return $this->employeeSearchCache[$name];
+
+        $result = eZSearch::search( $name, array( 'SearchContentClassID' => array( 20 ) ) );
+        if( isset( $result['SearchResult'][0] ) ) {
+            $this->employeeSearchCache[$name] = 1;
+            return true;
+        }
+        else {
+            $this->employeeSearchCache[$name] = 0;
+            return false;
+        }
     }
 
     public function geteZAttributeIdentifierFromField()
@@ -222,7 +256,7 @@ class PubmedHandler extends SourceHandler
 
     public function post_publish_handling( $eZ_object, $force_exit )
     {
-        $force_exit = false;        
+        $force_exit = false;
         return true;
     }
 
