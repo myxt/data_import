@@ -14,7 +14,7 @@ class Publications extends ImportOperator
   public function run()
   {
     $offset = 0;
-    $limit = 5;
+    $limit = 10;
     $max = 10000;
     $total = 0;
     $employeeClassID = eZContentObjectTreeNode::classIDByIdentifier( 'employee' );
@@ -30,7 +30,7 @@ class Publications extends ImportOperator
       $this->source_handler->first_employee = true; // Reset employee counter
       while( $this->source_handler->getNextEmployee() )
       {
-        $this->cli->output( "\nUpdating publications for employee " . $this->cli->stylize( 'emphasize', $this->source_handler->current_employee['object']->Name . " (" . $this->source_handler->current_employee['object']->ID . ")" ) . ":\n", false );
+        $this->cli->output( "\nUpdating publications for employee " . $this->cli->stylize( 'emphasize', $this->source_handler->current_employee['object']->Name . " (" . $this->source_handler->current_employee['object']->ID . ")" ) . $this->source_handler->current_employee['queryType'] . ":\n", false );
         $this->importRemotePublications();
         $total += 1;
       }
@@ -38,7 +38,7 @@ class Publications extends ImportOperator
       $offset += $limit;
     }
 
-    $this->cli->output( "\nProcessed " . $total . " employees with a total of " . count( $this->source_handler->sourceIdCache ) . " PubMed records.\n", false );
+    $this->cli->output( "\nFound " . $total . " matching employees with a total of " . count( $this->source_handler->sourceIdCache ) . " PubMed records.\n", false );
 
     $this->checkExistingPublications();
   

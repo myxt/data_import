@@ -74,15 +74,18 @@ class PubmedHandler extends SourceHandler
 
             // Only include doctors.
             $types = $map['type']->attribute('content');
+            echo $employee->Name . " (" . $types[0] ."); ";
             if( $types[0] !== 'arts' )
-                return;
+                continue;
 
             if( $map['publications_link']->attribute('has_content') )
             {
+                $queryType = 'link';
                 $searchTerm = $this->linkBasedSearchTerm( $employee );
             }
             else
             {
+                $queryType = 'name';
                 $searchTerm = $this->nameBasedSearchTerm( $employee );
             }
 
@@ -98,6 +101,7 @@ class PubmedHandler extends SourceHandler
             }
 
             $data[$employee->ID] = array(
+                'queryType' => $queryType,
                 'object' => $employee,
                 'results' => $results
             );
