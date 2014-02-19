@@ -71,6 +71,12 @@ class PubmedHandler extends SourceHandler
         {
 
             $map = $employee->attribute('data_map');
+
+            // Only include doctors.
+            $types = $map['type']->attribute('content');
+            if( $types[0] !== 'arts' )
+                return;
+
             if( $map['publications_link']->attribute('has_content') )
             {
                 $searchTerm = $this->linkBasedSearchTerm( $employee );
