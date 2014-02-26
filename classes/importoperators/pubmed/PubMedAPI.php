@@ -42,7 +42,7 @@ class PubMedAPI
   private $esearch = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?';
   private $efetch = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?';
 
-  public function query($term, $compact = false, $callback = false)
+  public function query($term, $params, $compact = false, $callback = false)
   {
     $this->term = $term;
     if ($this->exact_match) {
@@ -62,7 +62,7 @@ class PubMedAPI
       }
     }
 
-    $xml = $this->pubmed_esearch($this->term);
+    $xml = $this->pubmed_esearch($this->term, $params);
     $this->count = (int)$xml->Count;
 
     // esearch returns a list of IDs so we have to concatenate the list and do an efetch
@@ -96,7 +96,7 @@ class PubMedAPI
   }
 
   // Retuns an XML object
-  protected function pubmed_esearch($term)
+  protected function pubmed_esearch($term, $extraParams)
   {
     // Setup the URL for esearch
     $q = array();
@@ -108,6 +108,7 @@ class PubMedAPI
       'term'    => stripslashes(urlencode($term))
     );
     foreach ($params as $key => $value) { $q[] = $key . '=' . $value; }
+    foreach ($extraParams as $key => $value) { $q[] = $key . '=' . $value; }
     $httpquery = implode('&',$q);
     $url = $this->esearch . $httpquery;
     $XML = self::proxy_simplexml_load_file($url); // results of esearch, XML formatted

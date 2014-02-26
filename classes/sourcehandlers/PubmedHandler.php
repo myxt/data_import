@@ -107,9 +107,10 @@ class PubmedHandler extends SourceHandler
                 $searchTerm = $this->nameBasedSearchTerm( $employee );
             }
 
-            $searchTerm .= $this->year . '[pdat]';
+            $searchParams = array( 'mindate' => $this->year,
+                                   'maxdate' => $this->year );
 
-            $results = $this->API->query( $searchTerm );
+            $results = $this->API->query( $searchTerm, $searchParams );
 
             // Bouwt een array van publicatie id's uit de geimporteerde data,
             // nodig om ontbrekende publicaties uit eZ te verwijderen.
