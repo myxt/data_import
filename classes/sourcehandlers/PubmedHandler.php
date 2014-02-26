@@ -19,6 +19,7 @@ class PubmedHandler extends SourceHandler
     public $remoteID = '';
     public $classIdentifier = 'publication';
     public $parentNodeID = 2;
+    public $year;
 
     protected $API;
 
@@ -26,15 +27,23 @@ class PubmedHandler extends SourceHandler
 
     public function __construct()
     {
+        $this->API = new PubMedAPI();
+        $this->API->retmax = 100;
+        $this->API->exact_match = false;
+    }
+
+    public function init( array $parameters )
+    {
         $ini = eZINI::instance('data_import.ini');
+        $this->parameters = $parameters;
+
         if( $ini->hasVariable( 'PubmedHandler', 'ClassIdentifier' ) )
             $this->classIdentifier = $ini->variable( 'PubmedHandler', 'ClassIdentifier' );
         if( $ini->hasVariable( 'PubmedHandler', 'ParentNodeID' ) )
             $this->parentNodeID = $ini->variable( 'PubmedHandler', 'ParentNodeID' );
 
-        $this->API = new PubMedAPI();
-        $this->API->retmax = 100;
-        $this->API->exact_match = false;
+        $this->year = isset( $this->parameters['year'] ) ? $this->parameters['year'] : date('Y');
+        return $this;
     }
 
     public function writeLog( $message, $newlogfile = '')
@@ -83,10 +92,11 @@ class PubmedHandler extends SourceHandler
             // Only include doctors.
             $types = $map['type']->attribute('content');
             echo $employee->Name . " (" . $types[0] ."); ";
-            if( $types[0] !== 'arts' )
+            if( $types[0] !== 'arts' && $types[0] !== 'artsass' && $types[0] !== 'arts-assistent' )
                 continue;
 
-            if( $map['publications_link']->attribute('has_content') )
+            if( $map['publications_link']->attribute('has_content') &&
+                strpos( $map['publications_link']->attribute('content'), 'pubmed') !== false )
             {
                 $queryType = 'link';
                 $searchTerm = $this->linkBasedSearchTerm( $employee );
@@ -97,6 +107,8 @@ class PubmedHandler extends SourceHandler
                 $searchTerm = $this->nameBasedSearchTerm( $employee );
             }
 
+            $searchTerm .= $this->year . '[pdat]';
+
             $results = $this->API->query( $searchTerm );
 
             // Bouwt een array van publicatie id's uit de geimporteerde data,
@@ -106,6 +118,7 @@ class PubmedHandler extends SourceHandler
             {
                 $idArray[] = $result['pmid'];
                 $results[$key]['employees'] = '';
+                $results[$key]['departments'] = '';
             }
 
             $data[$employee->ID] = array(
@@ -113,10 +126,6 @@ class PubmedHandler extends SourceHandler
                 'object' => $employee,
                 'results' => $results
             );
-
-            //print_r($results);
-            //foreach( $results as $result )
-            //  echo '[[[' . $result['title'] . ']]]' . PHP_EOL;
 
         }
         $this->data = $data;
@@ -127,6 +136,8 @@ class PubmedHandler extends SourceHandler
     {
         $map = $employee->attribute('data_map');
         $publicationLinks = $map['publications_link']->attribute('content');
+        if( !strpos( $publicationLinks, 'term=' ) )
+            $publicationLinks = str_replace( '/pubmed/', '/pubmed?term=', $publicationLinks );
         $urlParts = parse_url( $publicationLinks );
         parse_str( $urlParts['query'] );
         return $term;
@@ -138,7 +149,7 @@ class PubmedHandler extends SourceHandler
 
         $insertion = trim( $map['insertion']->attribute('content') );
         $lastName = trim( $map['last_name']->attribute('content') );
-        if( $insertion ) $lastName = $insertion . "+" . $lastName;
+        if( $insertion ) $lastName = $insertion . $delimiter . $lastName;
         $initials = str_replace( array( ".", " " ), "", trim( $map['initials']->attribute('content') ) );
         return $lastName . $delimiter . $initials;
     }
@@ -216,9 +227,14 @@ class PubmedHandler extends SourceHandler
         switch ( $contentObjectAttribute->ContentClassAttributeIdentifier ) {
 
             case 'authors':
-                $employeeName = $this->formatName( $this->current_employee['object'] );
-                $authors = implode( ", ", $this->current_row['authors'] );
-                str_replace( $employeeName, "[b]" . $employeeName . "[/b]", $authors );
+                //$employeeName = $this->formatName( $this->current_employee['object'] );
+                $authors = $this->current_row['authors'];
+                //foreach( $authors as $key => $author ) {
+                //    if( trim( $author ) == "" ) unset( $authors[$key] );
+                //}
+                $authors = implode( ", ", $authors );
+                //$authors = str_replace( $employeeName, "<a href='" . MyxtLinkOperators::prefixUrl( $this->current_employee['object']->attribute('main_node')->attribute('url_alias') ) . "'>" . $employeeName . "</a>", $authors );
+                //echo $authors;
                 return $authors;                
 
             case 'employees': // object relation list
@@ -235,6 +251,32 @@ class PubmedHandler extends SourceHandler
                 // If we have more that one OLVG author in this publication, and this is a new author.
                 if( $new ) {
                     $newContent[] = $this->current_employee['object']->ID;
+                }
+
+                return implode( '-', $newContent );
+
+            case 'departments':
+                $content = $contentObjectAttribute->content();
+                $newContent = Array();
+                $new = true;
+
+                $employeeNode = $this->current_employee['object']->attribute('main_node');
+                $parentNode = $employeeNode->attribute('parent');
+                $counter = 1;
+                while( $parentNode->attribute('class_identifier') !== 'afdeling' && $counter < 10 ) {
+                    $parentNode = $parentNode->attribute('parent');
+                    $counter++;
+                }
+                
+                foreach( $content['relation_list'] as $relation ) {
+                    if( $relation['contentobject_id'] == $parentNode->attribute('contentobject_id') )
+                        $new = false;
+                    $newContent[] = $relation['contentobject_id'];
+                }
+
+                // If we have more that one OLVG author in this publication, and this is a new author.
+                if( $new && $parentNode->attribute('class_identifier') == 'afdeling' ) {
+                    $newContent[] = $parentNode->attribute('contentobject_id');
                 }
 
                 return implode( '-', $newContent );

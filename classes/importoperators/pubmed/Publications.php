@@ -13,15 +13,25 @@ class Publications extends ImportOperator
 
   public function run()
   {
+    $this->updatePublications();
+    $this->checkExistingPublications();
+  
+  }
+
+  public function updatePublications()
+  {
     $offset = 0;
     $limit = 10;
     $max = 10000;
     $total = 0;
     $employeeClassID = eZContentObjectTreeNode::classIDByIdentifier( 'employee' );
 
-    while( $employees = eZContentObject::fetchFilteredList( array( 'contentclass_id' => $employeeClassID ), $offset, $limit ) )
+    $this->cli->output( "Fetching data for year " . $this->source_handler->year);
+
+    while( $employees = eZPersistentObject::fetchObjectList( eZContentObject::definition(), null, array( 'contentclass_id' => $employeeClassID ), array( 'name' => 'asc' ), array( 'offset' => $offset, 'length' => $limit ) ) )
+    //while( $employees = eZContentObject::fetchFilteredList( array( 'contentclass_id' => $employeeClassID ), $offset, $limit ) )
     {
-      if( !count($employees) || $total > $max ) break;
+      if( !count($employees) || $total >= $max ) break;
 
       $this->cli->output( "\nFetched with offset " . $offset . ". Total is " . $total . ".\n", false );
 
@@ -38,10 +48,8 @@ class Publications extends ImportOperator
       $offset += $limit;
     }
 
-    $this->cli->output( "\nFound " . $total . " matching employees with a total of " . count( $this->source_handler->sourceIdCache ) . " PubMed records.\n", false );
+    $this->cli->output( "\nUpdated " . $total . " matching employees with a total of " . count( $this->source_handler->sourceIdCache ) . " PubMed records.\n", false );
 
-    $this->checkExistingPublications();
-  
   }
 
   public function checkExistingPublications()
@@ -70,7 +78,17 @@ class Publications extends ImportOperator
           $this->cli->output( $this->cli->stylize( 'gray', "skipped (manual).\n" ), false );
         }
 
-        elseif( !in_array( $sourceID , $this->source_handler->sourceIdCache ) )
+        elseif( isset( $object->attribute('data_map')['year'] ) && $object->attribute('data_map')['year']->attribute('content') !== $this->source_handler->year )
+        {
+          $this->cli->output( $this->cli->stylize( 'gray', "skipped (year).\n" ), false );
+        }
+
+        elseif( in_array( $sourceID , $this->source_handler->sourceIdCache ) )
+        {
+          $this->cli->output( $this->cli->stylize( 'gray', "skipped (current).\n" ), false );
+        }
+
+        else
         {
           try {
             $this->remove_eZ_object( $object );
@@ -80,10 +98,6 @@ class Publications extends ImportOperator
           }
           $this->cli->output( $this->cli->stylize( 'green', "successfully removed.\n" ), false );
           $clearCache = true;
-        }
-        else
-        {
-          $this->cli->output( $this->cli->stylize( 'gray', "skipped.\n" ), false );
         }
         $total += 1;
       }
@@ -107,9 +121,14 @@ class Publications extends ImportOperator
 
         $this->current_eZ_object = eZContentObject::fetchByRemoteID( $remoteID );
 
-        if( $this->current_eZ_object && $this->current_eZ_object->attribute('data_map')[manual_override]->attribute('content') )
+        if( $this->current_eZ_object && $this->current_eZ_object->attribute('data_map')['manual_override']->attribute('content') )
         {
           $this->cli->output( "skipping ". $this->current_eZ_object->attribute( 'id' ) . " (manual override)" . ".\n", false );
+        }
+
+        if( $this->current_eZ_object && $this->current_eZ_object->attribute('data_map')['year']->attribute('content') !== $this->source_handler->year )
+        {
+          $this->cli->output( "skipping ". $this->current_eZ_object->attribute( 'id' ) . " (year)" . ".\n", false );
         }
 
         if( !$this->current_eZ_object )
