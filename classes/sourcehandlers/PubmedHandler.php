@@ -133,28 +133,6 @@ class PubmedHandler extends SourceHandler
         $this->sourceIdCache = array_merge( $this->sourceIdCache, $idArray );
     }
 
-    private function linkBasedSearchTerm( $employee )
-    {
-        $map = $employee->attribute('data_map');
-        $publicationLinks = $map['publications_link']->attribute('content');
-        if( !strpos( $publicationLinks, 'term=' ) )
-            $publicationLinks = str_replace( '/pubmed/', '/pubmed?term=', $publicationLinks );
-        $urlParts = parse_url( $publicationLinks );
-        parse_str( $urlParts['query'] );
-        return $term;
-    }
-
-    private function nameBasedSearchTerm( $employee, $delimiter = "+" )
-    {
-        $map = $employee->attribute('data_map');
-
-        $insertion = trim( $map['insertion']->attribute('content') );
-        $lastName = trim( $map['last_name']->attribute('content') );
-        if( $insertion ) $lastName = $insertion . $delimiter . $lastName;
-        $initials = str_replace( array( ".", " " ), "", trim( $map['initials']->attribute('content') ) );
-        return $lastName . $delimiter . $initials;
-    }
-
     public function getNextEmployee()
     {
         $this->first_row = true;
@@ -286,6 +264,28 @@ class PubmedHandler extends SourceHandler
                 return $this->current_field['value'];
         }
 
+    }
+
+    private function linkBasedSearchTerm( $employee )
+    {
+        $map = $employee->attribute('data_map');
+        $publicationLinks = $map['publications_link']->attribute('content');
+        if( !strpos( $publicationLinks, 'term=' ) )
+            $publicationLinks = str_replace( '/pubmed/', '/pubmed?term=', $publicationLinks );
+        $urlParts = parse_url( $publicationLinks );
+        parse_str( $urlParts['query'] );
+        return $term;
+    }
+
+    private function nameBasedSearchTerm( $employee, $delimiter = "+" )
+    {
+        $map = $employee->attribute('data_map');
+
+        $insertion = trim( $map['insertion']->attribute('content') );
+        $lastName = trim( $map['last_name']->attribute('content') );
+        if( $insertion ) $lastName = $insertion . $delimiter . $lastName;
+        $initials = str_replace( array( ".", " " ), "", trim( $map['initials']->attribute('content') ) );
+        return $lastName . " " . $initials;
     }
 
     public function formatName( $employee ) {
