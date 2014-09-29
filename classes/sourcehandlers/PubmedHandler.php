@@ -100,13 +100,16 @@ class PubmedHandler extends SourceHandler
             {
                 $queryType = 'link';
                 $searchTerm = $this->linkBasedSearchTerm( $employee );
-            }
-            else
+            } else {
+		continue;
+	    }
+/*  Op verzoek van Janneke eruit gehaald. Alleen nog zoeken op basis van in profielen ingevoerde zoekopdrachten.
+			         else
             {
                 $queryType = 'name';
                 $searchTerm = $this->nameBasedSearchTerm( $employee );
             }
-
+*/
             $searchParams = array( 'mindate' => $this->year,
                                    'maxdate' => $this->year );
 
