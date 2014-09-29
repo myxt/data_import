@@ -202,10 +202,10 @@ class PubMedAPI
           'journalabbrev' => (string) $art->MedlineCitation->Article->Journal->ISOAbbreviation,
           'title'     => (string) $art->MedlineCitation->Article->ArticleTitle,
           'abstract'    => (string) $art->MedlineCitation->Article->Abstract->AbstractText,
-          'affiliation' => (string) $art->MedlineCitation->Article->Affiliation,
+//          'affiliation' => (string) $art->MedlineCitation->Article->Affiliation, gaf melding dat attribuut niet bestaat in eZ Publish //
           'authors'   => $authors,
-          'articleid'   => implode(',',$articleid),
-          'keywords'    => $keywords
+          'articleid'   => implode(',',$articleid)
+//          'keywords'    => $keywords //
         );
       }
     }
