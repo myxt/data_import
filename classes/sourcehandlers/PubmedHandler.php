@@ -89,10 +89,10 @@ class PubmedHandler extends SourceHandler
                 $employee->attribute('main_node')->attribute('is_hidden') == 1 )
                 continue;
 
-            // Only include doctors.
+            // Only include of these types
             $types = $map['type']->attribute('content');
             echo $employee->Name . " (" . $types[0] ."); ";
-            if( $types[0] !== 'arts' && $types[0] !== 'artsass' && $types[0] !== 'arts-assistent' )
+            if( $types[0] !== 'arts' && $types[0] !== 'artsass' && $types[0] !== 'arts-assistent' && $types[0] !== 'overig' )
                 continue;
 
             if( $map['publications_link']->attribute('has_content') &&
