@@ -161,7 +161,7 @@ class PubmedHandler extends SourceHandler
         if( $this->first_row )
         {
             $this->first_row = false;
-            //reset($this->current_row); 
+            //reset($this->current_row);
             $this->current_row = prev( $this->data[$this->current_employee['object']->ID]['results'] );
         }
         else
